@@ -10,7 +10,21 @@ export class ContactComponent implements OnInit {
   feedbackForm: FormGroup;
   feedback: Feedback;
   contactType = ContactType;
-  constructor() {}
+  constructor(private fb: FormBuilder) {
+    this.contactForm();
+  }
 
   ngOnInit(): void {}
+
+  createForm() {
+    this.feedbackForm = this.fb.group({
+      firstname: '',
+      lastname: '',
+      telnum: 0,
+      email: '',
+      agree: false,
+      contacttype: 'None',
+      message: ''
+    });
+  }
 }
