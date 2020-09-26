@@ -12,7 +12,11 @@
       <mat-card-header>
         <h2>{{ dish.name | uppercase }}</h2>
       </mat-card-header>
-      <img mat-card-image src="{{ dish.image }}" alt="{{ dish.name }}" />
+      <img
+        mat-card-image
+        src="{{ BaseURL + dish.image }}"
+        alt="{{ dish.name }}"
+      />
       <mat-card-content>
         <p>{{ dish.description }}</p>
       </mat-card-content>
@@ -108,7 +112,11 @@
     </div>
   </div>
 
-  <div fx-Flex [hidden]="dish">
+  <div fx-Flex [hidden]="dish || errMess">
     <mat-spinner></mat-spinner>
+  </div>
+  <div fxFlex *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{ errMess }}</h4>
   </div>
 </div>
