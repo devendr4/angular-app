@@ -6,11 +6,17 @@ import { Dish } from '../shared/dish';
 import { Comment } from '../shared/comment';
 import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { visibility } from '../animations/app.animation';
+import { flyInOut } from '../animations/app.animation';
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
   styleUrls: ['./dishdetail.component.scss'],
+  host: {
+    '[@flyInOut]': 'true',
+    style: 'display: block',
+  },
+  animations: [flyInOut(), visibility()],
 })
 export class DishdetailComponent implements OnInit {
   commentForm: FormGroup;
@@ -21,6 +27,7 @@ export class DishdetailComponent implements OnInit {
   prev: string;
   next: string;
   dishcopy: Dish;
+  visibility = 'shown';
 
   @ViewChild('commentform') commentFormDirective: any;
 
@@ -57,13 +64,17 @@ export class DishdetailComponent implements OnInit {
     );
     this.route.params
       .pipe(
-        switchMap((params: Params) => this.dishService.getDish(params['id']))
+        switchMap((params: Params) => {
+          this.visibility = 'hidden';
+          return this.dishService.getDish(params['id']);
+        })
       )
       .subscribe(
         (dish) => {
           this.dish = dish;
           this.dishcopy = dish;
           this.setPrevNext(dish.id);
+          this.visibility = 'shown';
         },
         (errmess) => (this.errMess = <any>errmess)
       );

@@ -36,15 +36,13 @@
       </div>
     </div>
   </div>
-  <div fxFlex fxFlexOffset="20px" class="form-size" >
+  <div fxFlex fxFlexOffset="20px" class="form-size">
     <h3>Send us your Feedback</h3>
     <form
       novalidate
       [formGroup]="feedbackForm"
       #fform="ngForm"
       (ngSubmit)="onSubmit()"
-      *ngIf="show"
-      [@expand]
     >
       <p>
         <mat-form-field class="half-width">
@@ -128,10 +126,6 @@
         Submit
       </button>
     </form>
-    <div [hidden]="show || feedback" [@expand]>
-      <h3>Submitting...</h3>
-      <mat-spinner></mat-spinner>
-    </div>
   </div>
   <div *ngIf="feedback">
     <h3>Your Submission</h3>
